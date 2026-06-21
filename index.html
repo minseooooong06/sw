@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고려대학교 주변 식당 추천 | 안암맛집 나침반</title>
+    <meta name="description" content="고려대학교 학생들을 위한 안암동 주변 맛집 추천 서비스. 한식, 중식, 일식, 양식, 분식 분류 및 대표 메뉴 필터링과 '오늘 뭐 먹지?' 랜덤 추천 기능을 제공합니다.">
+    <!-- Google Fonts: Outfit (English/Numbers) & Noto Sans KR (Korean) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="app-header">
+        <div class="header-container">
+            <a href="/" class="logo" id="headerLogo">
+                <span class="logo-ku">KU</span><span class="logo-text">맛집나침반</span>
+            </a>
+            <div class="header-actions">
+                <button class="btn btn-primary btn-random" id="btnRandomPick" title="오늘 뭐 먹지? 랜덤 추천">
+                    <i class="fa-solid fa-dice"></i>
+                    <span>오늘 뭐 먹지?</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="app-main">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">결정 장애 해결! 오늘 고대 주변에서 뭐 먹지?</h1>
+                <p class="hero-subtitle">고려대학교 안암캠퍼스 주변의 알짜배기 맛집들을 빠르고 편하게 찾아보세요.</p>
+                
+                <!-- Search Bar Container -->
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="식당 이름, 대표 메뉴(예: 삼겹살, 파스타) 등을 검색해 보세요..." autocomplete="off">
+                        <button class="search-btn" id="searchBtn">검색</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories & Navigation -->
+        <section class="filter-section">
+            <div class="section-container">
+                <h2 class="section-title">음식 종류 선택</h2>
+                <div class="categories-grid" id="categoriesGrid">
+                    <div class="category-card" data-category="한식" id="catKorean">
+                        <div class="category-img" style="background-image: url('/static/images/food_korean.jpg');"></div>
+                        <div class="category-info">
+                            <span class="cat-icon"><i class="fa-solid fa-bowl-rice"></i></span>
+                            <span class="cat-name">한식</span>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="일식" id="catJapanese">
+                        <div class="category-img" style="background-image: url('/static/images/food_japanese.jpg');"></div>
+                        <div class="category-info">
+                            <span class="cat-icon"><i class="fa-solid fa-shrimp"></i></span>
+                            <span class="cat-name">일식</span>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="중식" id="catChinese">
+                        <div class="category-img" style="background-image: url('/static/images/food_chinese.jpg');"></div>
+                        <div class="category-info">
+                            <span class="cat-icon"><i class="fa-solid fa-bowl-food"></i></span>
+                            <span class="cat-name">중식</span>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="양식" id="catWestern">
+                        <div class="category-img" style="background-image: url('/static/images/food_western.jpg');"></div>
+                        <div class="category-info">
+                            <span class="cat-icon"><i class="fa-solid fa-pizza-slice"></i></span>
+                            <span class="cat-name">양식</span>
+                        </div>
+                    </div>
+                    <div class="category-card" data-category="분식" id="catSnack">
+                        <div class="category-img" style="background-image: url('/static/images/food_snack.jpg');"></div>
+                        <div class="category-info">
+                            <span class="cat-icon"><i class="fa-solid fa-egg"></i></span>
+                            <span class="cat-name">분식 / 기타</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submenu Dynamic Pills -->
+                <div class="menu-pills-container hidden" id="menuPillsWrapper">
+                    <h3 class="submenu-title">상세 메뉴 선택</h3>
+                    <div class="menu-pills" id="menuPillsList">
+                        <!-- Dynamic Pills injected here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Restaurant List Section -->
+        <section class="results-section">
+            <div class="section-container">
+                <div class="results-header">
+                    <h2 class="section-title" id="resultsTitle">모든 맛집 목록</h2>
+                    <span class="results-count" id="resultsCount">총 0개 식당</span>
+                </div>
+                
+                <!-- Restaurant Grid -->
+                <div class="restaurants-grid" id="restaurantsGrid">
+                    <!-- Dynamic Restaurant Cards injected here -->
+                    <div class="loading-state" id="loadingState">
+                        <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        <p>고대 맛집 정보를 불러오는 중...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 KU 맛집나침반. All Rights Reserved. Designed for Korea University Students.</p>
+            <p class="footer-sub">고려대학교 안암캠퍼스 주변 식당 정보를 분류하여 결정 시간을 줄여주는 도우미 서비스입니다.</p>
+        </div>
+    </footer>
+
+    <!-- Restaurant Detail Drawer/Modal -->
+    <div class="modal-backdrop hidden" id="detailModal">
+        <div class="modal-container detail-modal">
+            <button class="modal-close" id="closeDetailModal" aria-label="닫기">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-body" id="detailModalBody">
+                <!-- Dynamic Content injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- "오늘 뭐 먹지?" Random Wheel/Slot Modal -->
+    <div class="modal-backdrop hidden" id="randomModal">
+        <div class="modal-container random-modal">
+            <button class="modal-close" id="closeRandomModal" aria-label="닫기">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="random-modal-header">
+                <h2><i class="fa-solid fa-dice-five text-crimson"></i> 오늘 뭐 먹지?</h2>
+                <p>결정이 어려울 땐 돌려보세요! 카테고리별 랜덤 추천</p>
+            </div>
+            <div class="random-modal-body">
+                <!-- Category Select inside Randomizer -->
+                <div class="random-category-select">
+                    <label for="randomCatSelect">선호 카테고리:</label>
+                    <select id="randomCatSelect">
+                        <option value="">전체 (무작위)</option>
+                        <option value="한식">한식</option>
+                        <option value="일식">일식</option>
+                        <option value="중식">중식</option>
+                        <option value="양식">양식</option>
+                        <option value="분식">분식 / 기타</option>
+                    </select>
+                </div>
+
+                <!-- Slot Machine Spinner -->
+                <div class="slot-machine-container">
+                    <div class="slot-window">
+                        <div class="slot-strip" id="slotStrip">
+                            <div class="slot-item active">어떤 식당일까요?</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="random-controls">
+                    <button class="btn btn-primary btn-large" id="startRandomBtn">추천 시작!</button>
+                </div>
+
+                <!-- Recommended Restaurant Result Display -->
+                <div class="random-result-card hidden" id="randomResultCard">
+                    <div class="result-details">
+                        <span class="badge" id="randomResBadge">카테고리</span>
+                        <h3 id="randomResName">식당 이름</h3>
+                        <div class="rating-price">
+                            <span class="rating" id="randomResRating">⭐ 4.8</span>
+                            <span class="price" id="randomResPrice">₩₩</span>
+                        </div>
+                        <p class="description" id="randomResDesc">식당에 대한 짧은 소개 문구...</p>
+                        <button class="btn btn-secondary btn-small" id="viewRandomDetailBtn">상세 정보 보기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
