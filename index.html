@@ -11,15 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome for Premium Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Custom Style Sheet (Relative Path) -->
+    <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
 
     <!-- Header Navigation -->
     <header class="app-header">
         <div class="header-container">
-            <a href="/" class="logo" id="headerLogo">
+            <a href="#" class="logo" id="headerLogo">
                 <span class="logo-ku">KU</span><span class="logo-text">맛집나침반</span>
             </a>
             <div class="header-actions">
@@ -57,35 +57,35 @@
                 <h2 class="section-title">음식 종류 선택</h2>
                 <div class="categories-grid" id="categoriesGrid">
                     <div class="category-card" data-category="한식" id="catKorean">
-                        <div class="category-img" style="background-image: url('/static/images/food_korean.jpg');"></div>
+                        <div class="category-img" style="background-image: url('static/images/food_korean.jpg');"></div>
                         <div class="category-info">
                             <span class="cat-icon"><i class="fa-solid fa-bowl-rice"></i></span>
                             <span class="cat-name">한식</span>
                         </div>
                     </div>
                     <div class="category-card" data-category="일식" id="catJapanese">
-                        <div class="category-img" style="background-image: url('/static/images/food_japanese.jpg');"></div>
+                        <div class="category-img" style="background-image: url('static/images/food_japanese.jpg');"></div>
                         <div class="category-info">
                             <span class="cat-icon"><i class="fa-solid fa-shrimp"></i></span>
                             <span class="cat-name">일식</span>
                         </div>
                     </div>
                     <div class="category-card" data-category="중식" id="catChinese">
-                        <div class="category-img" style="background-image: url('/static/images/food_chinese.jpg');"></div>
+                        <div class="category-img" style="background-image: url('static/images/food_chinese.jpg');"></div>
                         <div class="category-info">
                             <span class="cat-icon"><i class="fa-solid fa-bowl-food"></i></span>
                             <span class="cat-name">중식</span>
                         </div>
                     </div>
                     <div class="category-card" data-category="양식" id="catWestern">
-                        <div class="category-img" style="background-image: url('/static/images/food_western.jpg');"></div>
+                        <div class="category-img" style="background-image: url('static/images/food_western.jpg');"></div>
                         <div class="category-info">
                             <span class="cat-icon"><i class="fa-solid fa-pizza-slice"></i></span>
                             <span class="cat-name">양식</span>
                         </div>
                     </div>
                     <div class="category-card" data-category="분식" id="catSnack">
-                        <div class="category-img" style="background-image: url('/static/images/food_snack.jpg');"></div>
+                        <div class="category-img" style="background-image: url('static/images/food_snack.jpg');"></div>
                         <div class="category-info">
                             <span class="cat-icon"><i class="fa-solid fa-egg"></i></span>
                             <span class="cat-name">분식 / 기타</span>
@@ -114,10 +114,6 @@
                 <!-- Restaurant Grid -->
                 <div class="restaurants-grid" id="restaurantsGrid">
                     <!-- Dynamic Restaurant Cards injected here -->
-                    <div class="loading-state" id="loadingState">
-                        <i class="fa-solid fa-circle-notch fa-spin"></i>
-                        <p>고대 맛집 정보를 불러오는 중...</p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -197,7 +193,7 @@
         </div>
     </div>
 
-    <!-- Custom Script -->
-    <script src="/static/js/main.js"></script>
+    <!-- Custom Script (Relative Path) -->
+    <script src="static/js/main.js"></script>
 </body>
 </html>
